@@ -1,12 +1,19 @@
-// DEPENDENCIES
+//** DEPENDENCIES
 const express = require('express')
 
-// CONFIGURATION
+//** CONFIGURATION
 require('dotenv').config()
 const PORT = process.env.PORT
 const app = express()
 
-// ROUTES
+//** MIDDLEWARE
+app.set('views', __dirname + '/views')
+    //telling the app what format to use
+app.set('view engine', 'jsx')
+    //creates the ability to render jsx files in the app
+app.engine('jsx', require('express-react-views').createEngine())
+
+//** ROUTES
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to an Awesome App about Breads</h1>')
   })
@@ -16,12 +23,12 @@ const breadsController = require('./controllers/breads_controller.js')
 //use app.use because we have it in another controller /breads is the path breadsController is the required controller path variable
 app.use('/breads', breadsController)
 
-// LISTEN
+//** LISTEN
 app.listen(PORT, () => {
   console.log('nomming at port', PORT);
 })
 
-//WILD CARD
+//** WILD CARD
 app.get('*', (req, res) => {
     res.send('<h1>404 PAGE NOT FOUND</h1>')
   })

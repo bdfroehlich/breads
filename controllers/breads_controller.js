@@ -2,9 +2,14 @@ const express = require('express')
 const breads = express.Router()
 const Bread = require('../models/breads.js')
 
-// INDEX - path for breads is defined in server.js
+// INDEX
 breads.get('/', (req, res) => {
-  res.send(Bread)
+    res.render('index',
+      {
+        breads: Bread
+      }
+    )
+  // res.send(Bread)
 })
 
 // SHOW - can path to breads/# to get to a specific bread in our array of breads stored in models/breads.js
