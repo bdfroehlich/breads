@@ -10,7 +10,7 @@ breads.get('/', (req, res) => {
 // SHOW - can path to breads/# to get to a specific bread in our array of breads stored in models/breads.js
 breads.get('/:arrayIndex', (req, res) => {
     //USE TERNARY OPERATOR TO GIVE AN ERROR IF THE SPECIFIED INDEX IS OUTSIDE OF THE BREAD ARRAY
-                //TRUE GOES TO ARRAY      ?      //FALSE RETURNS INVALID INPUT TO PAGE
+                //    CONDITIONAL         ?       exprIfTrue : exprIfFalse (null is always false an index outside of the array is null)
     res.send(Bread[req.params.arrayIndex] ? Bread[req.params.arrayIndex] : "INVALID INPUT" )
   })
 
