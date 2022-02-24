@@ -1,9 +1,17 @@
 const express = require('express')
 const breads = express.Router()
+const Bread = require('../models/breads.js')
 
-// INDEX
+// INDEX - path for breads is defined in server.js
 breads.get('/', (req, res) => {
-  res.send('This is the index at /breads')
+  res.send(Bread)
 })
+
+// SHOW - can path to breads/# to get to a specific bread in our array of breads stored in models/breads.js
+breads.get('/:arrayIndex', (req, res) => {
+    //USE TERNARY OPERATOR TO GIVE AN ERROR IF THE SPECIFIED INDEX IS OUTSIDE OF THE BREAD ARRAY
+                //TRUE GOES TO ARRAY      ?      //FALSE RETURNS INVALID INPUT TO PAGE
+    res.send(Bread[req.params.arrayIndex] ? Bread[req.params.arrayIndex] : "INVALID INPUT" )
+  })
 
 module.exports = breads
