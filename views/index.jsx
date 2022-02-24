@@ -9,6 +9,7 @@ function Index ({breads})  {
             {
                 breads.map((bread, index) => {
                     return (<li key={index}>
+                        {/* going to /breads/ and then the breads index # */}
                         <a href={`/breads/${index}`}>
                             {bread.name}
                         </a>
