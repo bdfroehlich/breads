@@ -3,6 +3,7 @@ const breads = express.Router()
 const Bread = require('../models/breads.js')
 
 // INDEX
+// /breads
 breads.get('/', (req, res) => {
     res.render('index',
       {
@@ -13,14 +14,15 @@ breads.get('/', (req, res) => {
   // res.send(Bread)
 })
 
-// SHOW - can path to breads/# to get to a specific bread in our array of breads stored in models/breads.js
-// breads.get('/:arrayIndex', (req, res) => {
-//     //USE TERNARY OPERATOR TO GIVE AN ERROR IF THE SPECIFIED INDEX IS OUTSIDE OF THE BREAD ARRAY
-//                 //    CONDITIONAL         ?       exprIfTrue : exprIfFalse (null is always false an index outside of the array is null)
-//     res.send(Bread[req.params.arrayIndex] ? Bread[req.params.arrayIndex] : "INVALID INPUT" )
-//   })
+
+// NEW
+// /breads/new
+breads.get('/new', (req, res) => {
+  res.render('new')
+})
 
 // SHOW
+// /breads/:arrayIndex
 breads.get('/:arrayIndex', (req, res) => {
   if (Bread[req.params.arrayIndex]) {
     res.render('Show', {
@@ -30,5 +32,22 @@ breads.get('/:arrayIndex', (req, res) => {
     res.render('notFound')
   }
 })
+
+
+// CREATE
+// /breads/
+breads.post('/', (req, res) => {
+  if (!req.body.image) {
+    req.body.image = 'https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
+  }
+  if(req.body.hasGluten === 'on') {
+    req.body.hasGluten = true
+  } else {
+    req.body.hasGluten = false
+  }
+  Bread.push(req.body)
+  res.redirect('/breads')
+})
+
 
 module.exports = breads

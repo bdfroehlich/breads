@@ -14,6 +14,7 @@ app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
     //looks for all files in the public directory
 app.use(express.static('public'))
+app.use(express.urlencoded({extended: true}))
 
 //** ROUTES
 app.get('/', (req, res) => {
