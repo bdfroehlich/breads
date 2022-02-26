@@ -6,12 +6,14 @@ require('dotenv').config()
 const PORT = process.env.PORT
 const app = express()
 
-//** MIDDLEWARE
+//** MIDDLEWARE - needs to be above ROUTES - need to use resources in public folders before routes
 app.set('views', __dirname + '/views')
     //telling the app what format to use
 app.set('view engine', 'jsx')
     //creates the ability to render jsx files in the app
 app.engine('jsx', require('express-react-views').createEngine())
+    //looks for all files in the public directory
+app.use(express.static('public'))
 
 //** ROUTES
 app.get('/', (req, res) => {
@@ -30,5 +32,5 @@ app.listen(PORT, () => {
 
 //** WILD CARD
 app.get('*', (req, res) => {
-    res.send('<h1>404 PAGE NOT FOUND</h1>')
+    res.render('notFound')
   })
