@@ -14,10 +14,19 @@ breads.get('/', (req, res) => {
 })
 
 // SHOW - can path to breads/# to get to a specific bread in our array of breads stored in models/breads.js
+// breads.get('/:arrayIndex', (req, res) => {
+//     //USE TERNARY OPERATOR TO GIVE AN ERROR IF THE SPECIFIED INDEX IS OUTSIDE OF THE BREAD ARRAY
+//                 //    CONDITIONAL         ?       exprIfTrue : exprIfFalse (null is always false an index outside of the array is null)
+//     res.send(Bread[req.params.arrayIndex] ? Bread[req.params.arrayIndex] : "INVALID INPUT" )
+//   })
+
+// SHOW
 breads.get('/:arrayIndex', (req, res) => {
-    //USE TERNARY OPERATOR TO GIVE AN ERROR IF THE SPECIFIED INDEX IS OUTSIDE OF THE BREAD ARRAY
-                //    CONDITIONAL         ?       exprIfTrue : exprIfFalse (null is always false an index outside of the array is null)
-    res.send(Bread[req.params.arrayIndex] ? Bread[req.params.arrayIndex] : "INVALID INPUT" )
+  res.render('Show', {
+    //req = the http request GET
+    //arrayIndex = associated index of breads array that is clicked on
+    bread: Bread[req.params.arrayIndex]
   })
+})
 
 module.exports = breads
