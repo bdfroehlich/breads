@@ -2,8 +2,7 @@ const express = require('express')
 const breads = express.Router()
 const Bread = require('../models/breads.js')
 
-// INDEX
-// /breads
+// INDEX /breads
 breads.get('/', (req, res) => {
     res.render('index',
       {
@@ -15,14 +14,12 @@ breads.get('/', (req, res) => {
 })
 
 
-// NEW
-// /breads/new
+// NEW /breads/new
 breads.get('/new', (req, res) => {
   res.render('new')
 })
 
-// SHOW
-// /breads/:arrayIndex
+// SHOW /breads/:arrayIndex
 breads.get('/:arrayIndex', (req, res) => {
   if (Bread[req.params.arrayIndex]) {
     res.render('Show', {
@@ -34,9 +31,7 @@ breads.get('/:arrayIndex', (req, res) => {
   }
 })
 
-
-// CREATE
-// /breads/
+// CREATE /breads/
 breads.post('/', (req, res) => {
   if(!req.body.name) {
     res.send('<h1>400 Error - Bread name is null</h1>')
@@ -58,6 +53,26 @@ breads.post('/', (req, res) => {
 breads.delete('/:indexArray', (req, res) => {
   Bread.splice(req.params.indexArray, 1)
   res.status(303).redirect('/breads')
+})
+
+// EDIT
+breads.get('/:indexArray/edit', (req, res) => {
+  res.render('edit', {
+    bread: Bread[req.params.indexArray],
+    index: req.params.indexArray
+  })
+})
+
+// UPDATE
+breads.put('/:arrayIndex', (req, res) => {
+  if(req.body.hasGluten === 'on'){
+    req.body.hasGluten = true
+  } else {
+    req.body.hasGluten = false
+  }
+  //setting the name, hasGluten, and image - but your req.body could have extra data - bad practice
+  Bread[req.params.arrayIndex] = req.body
+  res.redirect(`/breads/${req.params.arrayIndex}`)
 })
 
 

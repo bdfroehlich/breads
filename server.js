@@ -16,7 +16,7 @@ app.engine('jsx', require('express-react-views').createEngine())
     //looks for all files in the public directory
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}))
-    //override method for delete form install using npm install method-override
+    //override method for forms
 app.use(methodOverride('_method'))
 
 
