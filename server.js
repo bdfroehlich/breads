@@ -1,5 +1,6 @@
 //** DEPENDENCIES
 const express = require('express')
+const methodOverride = require('method-override')
 
 //** CONFIGURATION
 require('dotenv').config()
@@ -15,6 +16,9 @@ app.engine('jsx', require('express-react-views').createEngine())
     //looks for all files in the public directory
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}))
+    //override method for delete form install using npm install method-override
+app.use(methodOverride('_method'))
+
 
 //** ROUTES
 app.get('/', (req, res) => {
