@@ -7,8 +7,8 @@ function Index ({breads, title})  {
         <h2>Index Page</h2>
         <ul>
             {
-                breads.map((bread, index) => {
-                    return (<li key={index}>
+                breads.map((bread) => {
+                    return (<li key={bread.id}>
                         {/* going to /breads/ and then the breads index # */}
                         <a href={`/breads/${bread.id}`}>
                             {bread.name}

@@ -3,10 +3,11 @@ const mongoose = require('mongoose')
 // creating shorthand for the Schema constructor 
 const { Schema } = mongoose 
 
+// schema
 const breadSchema = new Schema({
-  name: { type: String, required: true },
-  hasGluten: Boolean,
-  image: { type: String, default: 'http://placehold.it/500x500.png' }
+    name: { type: String, required: true },
+    hasGluten: Boolean,
+    image: { type: String, default: 'https://picsum.photos/200/300?random=1' }
 })
 
 // model and export 
