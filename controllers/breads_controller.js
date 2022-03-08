@@ -20,7 +20,7 @@ breads.get('/new', (req, res) => {
   res.render('new')
 })
 
-// SHOW /breads/:arrayIndex
+// SHOW /breads/
 breads.get('/:id', (req, res) => {
   //req.params.id = the id sent in the get req body
   //return form findByID would return null because it is a promise, need to use .then to render the page
@@ -126,7 +126,7 @@ breads.get('/data/seed', (req, res) => {
     })
 })
 
-//end ourte to update baker for any breads that do not have a baker or baker is null
+//route to update baker for any breads that do not have a baker or baker is null
 breads.get('/data/update/baker', (req, res) => {
   const validBakers = ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Phoebe'];
   // use math.random to 
