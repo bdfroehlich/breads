@@ -26,7 +26,12 @@ breads.get('/:id', (req, res) => {
   //return form findByID would return null because it is a promise, need to use .then to render the page
   Bread.findById(req.params.id)
       .then(foundBread => {
-        //show the bread
+        //save the string that gets returned to a variable so we can use i
+        const bakedBy = foundBread.getBakedBy()
+        console.log(bakedBy)
+        //do not need to pass the bakedBy variable in show we passed that variable directly to our show view below.
+        //which means our show view has access to the entire foundBread object, 
+        //which has our bakedBy instance method on it.
           res.render('show', {
               bread: foundBread
           })
@@ -116,9 +121,19 @@ breads.get('/data/seed', (req, res) => {
       image: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80',
     }
   ]).then(createdBreads => {
-    console.log(createdBreads)
+      console.log(createdBreads)
       res.redirect('/breads')
     })
+})
+
+//end ourte to update baker for any breads that do not have a baker or baker is null
+breads.get('/data/update/baker', (req, res) => {
+  const validBakers = ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Phoebe'];
+  // use math.random to 
+  Bread.updateMany({baker: null}, {baker: validBakers[0]}).then(updatedBread => {
+    console.log(updatedBread);
+    res.redirect('/breads');
+  });
 })
 
 

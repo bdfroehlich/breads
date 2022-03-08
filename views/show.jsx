@@ -17,7 +17,7 @@ function Show ({bread}) {
                 have gluten.
             </p>
             <img src={bread.image} alt={bread.name} />
-            <p>Baked by {bread.baker}!</p>
+            <p>{bread.getBakedBy()}</p>
             <a href={`/breads/${bread.id}/edit`}><button>Edit</button></a>
             {/* overriding form to delete instead of post because forms can only post */}
             <form action={`/breads/${bread.id}?_method=DELETE`} method="POST">
