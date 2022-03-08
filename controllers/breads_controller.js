@@ -26,12 +26,11 @@ breads.get('/:id', (req, res) => {
   //return form findByID would return null because it is a promise, need to use .then to render the page
   Bread.findById(req.params.id)
       .then(foundBread => {
-        //save the string that gets returned to a variable so we can use i
-        const bakedBy = foundBread.getBakedBy()
-        console.log(bakedBy)
+        //save the string that gets returned to a variable so we can use it
+        // const bakedBy = foundBread.getBakedBy()
+        // console.log(bakedBy)
         //do not need to pass the bakedBy variable in show we passed that variable directly to our show view below.
-        //which means our show view has access to the entire foundBread object, 
-        //which has our bakedBy instance method on it.
+        //which means our show view has access to the entire foundBread object, which has our bakedBy instance method on it.
           res.render('show', {
               bread: foundBread
           })

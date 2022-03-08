@@ -12,4 +12,9 @@ img {
     text-align: center;
     display: block;
 }
+
+#bakedBy {
+    list-style: none;
+    color: blueviolet;
+}
   
