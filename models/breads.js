@@ -21,7 +21,7 @@ breadSchema.methods.getBakedBy = function(){
 }
 
 breadSchema.methods.getBakedByIndex = function(){
-    return `Baked with love by ${this.baker.name}`
+    return `Baked by ${this.baker.name}`
 }
 
 // model and export 

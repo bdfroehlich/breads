@@ -5,15 +5,17 @@ const Baker = require('../models/baker.js')
 
 // INDEX /breads
 breads.get('/', (req, res) => {
-  //.find() return a promise to so we can use .then on it
-  Bread.find()
-  .populate('baker')
+  Baker.find()
+    .then(foundBakers => {
+      Bread.find()
       .then(foundBreads => {
           res.render('index', {
               breads: foundBreads,
+              bakers: foundBakers,
               title: 'Index Page'
           })
       })
+    })
 })
 
 
@@ -30,17 +32,10 @@ breads.get('/new', (req, res) => {
 
 // SHOW /breads/
 breads.get('/:id', (req, res) => {
-  //req.params.id = the id sent in the get req body
-  //return form findByID would return null because it is a promise, need to use .then to render the page
   Bread.findById(req.params.id)
   .populate('baker')
       .then(foundBread => {
         console.log(foundBread)
-        //save the string that gets returned to a variable so we can use it
-        // const bakedBy = foundBread.getBakedBy()
-        // console.log(bakedBy)
-        //do not need to pass the bakedBy variable in show we passed that variable directly to our show view below.
-        //which means our show view has access to the entire foundBread object, which has our bakedBy instance method on it.
           res.render('show', {
               bread: foundBread
           })
