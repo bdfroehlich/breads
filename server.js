@@ -18,7 +18,7 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'jsx')
     //creates the ability to render jsx files in the app
 app.engine('jsx', require('express-react-views').createEngine())
-    //looks for all files in the public directory
+    //looks for all static files in the public directory
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}))
     //override method for forms
@@ -30,10 +30,15 @@ app.get('/', (req, res) => {
     res.send('<h1>Welcome to an Awesome App about Breads</h1>')
   })
   
-// Breads - we can require it because we exported breads in the breads_controller and put it in a new variable
+// Point to breads controller
 const breadsController = require('./controllers/breads_controller.js')
-//use app.use because we have it in another controller /breads is the path breadsController is the required controller path variable
+//path to get to breads controller
 app.use('/breads', breadsController)
+
+// Point to bakers controller 
+const bakersController = require('./controllers/bakers_controller.js')
+//path to bakers controller
+app.use('/bakers', bakersController)
 
 //** LISTEN
 app.listen(PORT, () => {
