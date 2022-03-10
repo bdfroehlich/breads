@@ -9,7 +9,7 @@ const breadSchema = new Schema({
   hasGluten: Boolean,
   image: { type: String, default: 'http://placehold.it/500x500.png' },
   baker: {
-    //ref to baker collection / model
+    //ref to Baker exported in baker.js model
     type: Schema.Types.ObjectID,
     ref: 'Baker'
   }
@@ -17,20 +17,12 @@ const breadSchema = new Schema({
 
 // helper methods 
 breadSchema.methods.getBakedBy = function(){
-    return `${this.name} was baked with love by ${this.baker}`
-  }
-
-breadSchema.methods.getBakedByIndex = function(){
-    return `Baked with love by ${this.baker}`
+  return `${this.name} was baked with love by ${this.baker.name}, who has been with us since ${this.baker.startDate.getFullYear()}. ${this.baker.name} ${this.baker.bio} `
 }
 
-// //static
-// breadSchema.static.bakerBreads = function (inputBaker) {
-//    return this.find({baker: inputBaker}).then(bakerBreads => {
-//         console.log(bakerBreads);
-//         res.send('BakersPage');
-//     })
-// }
+breadSchema.methods.getBakedByIndex = function(){
+    return `Baked with love by ${this.baker.name}`
+}
 
 // model and export 
 const Bread = mongoose.model('Bread', breadSchema)

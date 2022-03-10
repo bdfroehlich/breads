@@ -7,6 +7,7 @@ const Baker = require('../models/baker.js')
 breads.get('/', (req, res) => {
   //.find() return a promise to so we can use .then on it
   Bread.find()
+  .populate('baker')
       .then(foundBreads => {
           res.render('index', {
               breads: foundBreads,
@@ -32,7 +33,9 @@ breads.get('/:id', (req, res) => {
   //req.params.id = the id sent in the get req body
   //return form findByID would return null because it is a promise, need to use .then to render the page
   Bread.findById(req.params.id)
+  .populate('baker')
       .then(foundBread => {
+        console.log(foundBread)
         //save the string that gets returned to a variable so we can use it
         // const bakedBy = foundBread.getBakedBy()
         // console.log(bakedBy)
@@ -76,15 +79,19 @@ breads.delete('/:id', (req, res) => {
 
 // EDIT
 breads.get('/:id/edit', (req, res) => {
-  Bread.findById(req.params.id) 
-    .then(foundBread => { 
-      res.render('edit', {
-        bread: foundBread 
-      })
+  Baker.find()
+    .then(foundBakers => {
+        Bread.findById(req.params.id)
+          .then(foundBread => {
+            res.render('edit', {
+                bread: foundBread, 
+                bakers: foundBakers 
+            })
+          })
     })
-  .catch(err => {
-    res.send('404')
-  })
+    .catch(err => {
+      res.send('404')
+    })
 })
 
 // UPDATE
@@ -132,15 +139,15 @@ breads.get('/data/seed', (req, res) => {
     })
 })
 
-//route to update baker for any breads that do not have a baker or baker is null
-breads.get('/data/update/baker', (req, res) => {
-  const validBakers = ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Phoebe'];
-  // use math.random to 
-  Bread.updateMany({baker: null}, {baker: validBakers[0]}).then(updatedBread => {
-    console.log(updatedBread);
-    res.redirect('/breads');
-  });
-})
+// //route to update baker for any breads that do not have a baker or baker is null
+// breads.get('/data/update/baker', (req, res) => {
+//   const validBakers = ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Phoebe'];
+//   // use math.random to 
+//   Bread.updateMany({baker: null}, {baker: validBakers[0]}).then(updatedBread => {
+//     console.log(updatedBread);
+//     res.redirect('/breads');
+//   });
+// })
 
 
 module.exports = breads
