@@ -4,19 +4,17 @@ const Bread = require('../models/breads.js')
 const Baker = require('../models/baker.js')
 
 // INDEX /breads
-breads.get('/', (req, res) => {
-  Baker.find()
-    .then(foundBakers => {
-      Bread.find()
-      .then(foundBreads => {
-          res.render('index', {
-              breads: foundBreads,
-              bakers: foundBakers,
-              title: 'Index Page'
-          })
-      })
-    })
+breads.get('/', async (req, res) => {
+  const foundBakers = await Baker.find().lean()
+  const foundBreads = await Bread.find().limit(3).lean()
+  console.log(foundBreads)
+  res.render('index', {
+    breads: foundBreads,
+    bakers: foundBakers,
+    title: 'Index Page'
+  })
 })
+
 
 
 // NEW
@@ -25,7 +23,8 @@ breads.get('/new', (req, res) => {
         .then(foundBakers => {
             res.render('new', {
               //anonymous object with key "bakers" that we can pass into new.jsx
-                bakers: foundBakers
+                bakers: foundBakers,
+                title: 'New Bread'
             })
       })
 })
@@ -37,7 +36,8 @@ breads.get('/:id', (req, res) => {
       .then(foundBread => {
         console.log(foundBread)
           res.render('show', {
-              bread: foundBread
+              bread: foundBread,
+              title: foundBread.name
           })
       })
       .catch(err => {

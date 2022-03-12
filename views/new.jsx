@@ -1,9 +1,9 @@
 const React = require('react')
 const Default = require('./layouts/Default')
 
-function New ({bakers}) {
+function New ({bakers, title}) {
     return (
-      <Default>
+      <Default title={title}>
         <h2>Add a new bread</h2>
         <form action="/breads" method="POST">
           <label htmlFor="name">Name</label>
