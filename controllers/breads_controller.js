@@ -6,8 +6,9 @@ const Baker = require('../models/baker.js')
 // INDEX /breads
 breads.get('/', async (req, res) => {
   const foundBakers = await Baker.find().lean()
+  //only grab the first 3 and return them.. don't have to grab the whole database then return the first 3
   const foundBreads = await Bread.find().limit(3).lean()
-  console.log(foundBreads)
+  // console.log(foundBreads)
   res.render('index', {
     breads: foundBreads,
     bakers: foundBakers,
@@ -34,7 +35,7 @@ breads.get('/:id', (req, res) => {
   Bread.findById(req.params.id)
   .populate('baker')
       .then(foundBread => {
-        console.log(foundBread)
+        // console.log(foundBread)
           res.render('show', {
               bread: foundBread,
               title: foundBread.name
@@ -78,9 +79,11 @@ breads.get('/:id/edit', (req, res) => {
     .then(foundBakers => {
         Bread.findById(req.params.id)
           .then(foundBread => {
+            // console.log(foundBread)
             res.render('edit', {
                 bread: foundBread, 
-                bakers: foundBakers 
+                bakers: foundBakers,
+                title: `Edit ${foundBread.name}` 
             })
           })
     })

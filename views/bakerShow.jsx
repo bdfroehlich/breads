@@ -1,9 +1,9 @@
 const React = require('react')
 const Default = require('./layouts/Default')
 
-function Show ({baker}) {
+function Show ({baker, title}) {
     return (
-      <Default>
+      <Default title={title}>
           <h3>{baker.name}</h3>
           <p>{baker.name} has been baking with us since {baker.startDate.getFullYear()}</p>
           <p>About {baker.name}: {baker.bio}</p>

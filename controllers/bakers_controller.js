@@ -1,6 +1,6 @@
 // dependencies
 const express = require('express')
-//baker needs its on route / page
+//baker needs its own route / page
 const baker = express.Router()
 const Baker = require('../models/baker.js')
 const bakerSeedData = require('../models/baker_seed.js')
@@ -28,8 +28,10 @@ baker.get('/:id', (req, res) => {
             options: {limit: 3}
         })
         .then(foundBaker => {
+            console.log(foundBaker)
             res.render('bakerShow', {
-                baker: foundBaker
+                baker: foundBaker,
+                title: `${foundBaker.name}'s Page`
             })
         })
   })
