@@ -17,4 +17,14 @@ img {
     list-style: none;
     color: blueviolet;
 }
+
+#deleteBtn {
+    border-radius: 8px;
+}
+
+#deleteBtn:hover {
+    background-color: #d72c2c; /* Green */
+    color: white;
+}
+
   

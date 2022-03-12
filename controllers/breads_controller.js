@@ -106,33 +106,22 @@ breads.put('/:id', (req, res) => {
 })
 
 //SEED DATA for testing
+//currently need to seed baker data before seeding breads
 breads.get('/data/seed', (req, res) => {
-  Bread.insertMany([
-    {
-      name: 'Rye',
-      hasGluten: true,
-      image: 'https://images.unsplash.com/photo-1595535873420-a599195b3f4a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
-    },
-    {
-      name: 'French',
-      hasGluten: true,
-      image: 'https://images.unsplash.com/photo-1534620808146-d33bb39128b2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    },
-    {
-      name: 'Gluten Free',
-      hasGluten: false,
-      image: 'https://images.unsplash.com/photo-1546538490-0fe0a8eba4e6?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80',
-    },
-    {
-      name: 'Pumpernickel',
-      hasGluten: true,
-      image: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80',
-    }
-  ]).then(createdBreads => {
-      console.log(createdBreads)
-      res.redirect('/breads')
-    })
+  Baker.find().then(bakers => {
+    console.log(bakers);
+    bakers.forEach(b => {
+      console.log(b.id);
+      Bread.create({
+        name: 'Rye',
+        hasGluten: true,
+        image: 'https://images.unsplash.com/photo-1595535873420-a599195b3f4a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+        baker: b.id
+      });
+    });
+  })
 })
+
 
 // //route to update baker for any breads that do not have a baker or baker is null
 // breads.get('/data/update/baker', (req, res) => {

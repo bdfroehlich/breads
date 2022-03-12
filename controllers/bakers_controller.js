@@ -11,7 +11,7 @@ baker.get('/data/seed', (req, res) => {
         .then(res.redirect('/breads'))
 })
 
-// Index: 
+// Index
 baker.get('/', (req, res) => {
     Baker.find()
         .populate('breads')
@@ -20,7 +20,7 @@ baker.get('/', (req, res) => {
         })
 })
 
-// SHOW BAKERS 
+// Show
 baker.get('/:id', (req, res) => {
     Baker.findById(req.params.id)
         .populate('breads')
@@ -30,6 +30,14 @@ baker.get('/:id', (req, res) => {
             })
         })
   })
+
+// Delete
+baker.delete('/:id', (req, res) => {
+    Baker.findByIdAndDelete(req.params.id) 
+      .then(deletedBaker => { 
+        res.status(303).redirect('/breads')
+      })
+})
 
 // export
 module.exports = baker                    

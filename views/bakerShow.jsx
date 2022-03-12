@@ -21,6 +21,9 @@ function Show ({baker}) {
                         })
                     }
                 </ul>
+                <form action={`/bakers/${baker.id}?_method=DELETE`} method="POST">
+                    <input id="deleteBtn" type="submit" value="DELETE"/>
+                </form>
       </Default>
     )
 }
