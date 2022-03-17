@@ -4,7 +4,7 @@ const Default = require('./layouts/default')
 function Index ({breads, bakers, title})  {
     return (
       <Default title={title}>
-        <h2>Index Page</h2>
+        <h2>Our Breads & Bakers!</h2>
         <h3>Bakers</h3>
         <ul>
             {

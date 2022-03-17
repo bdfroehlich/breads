@@ -27,8 +27,9 @@ app.use(methodOverride('_method'))
 
 //** ROUTES
 app.get('/', (req, res) => {
-    res.send('<h1>Welcome to an Awesome App about Breads</h1>')
-  })
+    // res.send('<h1>Welcome to an Awesome App about Breads</h1>')
+    res.redirect('/breads')
+})
   
 // Point to breads controller
 const breadsController = require('./controllers/breads_controller.js')
@@ -48,4 +49,4 @@ app.listen(PORT, () => {
 //** WILD CARD
 app.get('*', (req, res) => {
     res.render('notfound')
-  })
+})
