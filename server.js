@@ -47,5 +47,5 @@ app.listen(PORT, () => {
 
 //** WILD CARD
 app.get('*', (req, res) => {
-    res.render('notFound')
+    res.render('notfound')
   })
