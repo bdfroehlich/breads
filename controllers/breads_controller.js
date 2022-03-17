@@ -94,7 +94,7 @@ breads.get('/:id/edit', (req, res) => {
 
 // UPDATE
 breads.put('/:id', (req, res) => {
-  //validation
+  //validatte has gluten checkbox
   if(req.body.hasGluten === 'on'){
     req.body.hasGluten = true
   } else {
@@ -125,16 +125,6 @@ breads.get('/data/seed', (req, res) => {
   })
 })
 
-
-// //route to update baker for any breads that do not have a baker or baker is null
-// breads.get('/data/update/baker', (req, res) => {
-//   const validBakers = ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Phoebe'];
-//   // use math.random to 
-//   Bread.updateMany({baker: null}, {baker: validBakers[0]}).then(updatedBread => {
-//     console.log(updatedBread);
-//     res.redirect('/breads');
-//   });
-// })
 
 
 module.exports = breads
